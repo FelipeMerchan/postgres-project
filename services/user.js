@@ -1,6 +1,10 @@
 const boom = require('@hapi/boom');
 
-const getConnection = require('../libs/postgres');
+/* Cada vez que hacemos está configuración: User.init(UserSchema, User.config(sequelize));
+  Sequelize crea un namespace llamados models en donde va a guardar todos
+  los modelos; por ejemplo, models.User.
+*/
+const { models } = require('./../libs/sequelize');
 
 class UserService {
   constructor() {}
@@ -10,9 +14,8 @@ class UserService {
   }
 
   async find() {
-    const client = await getConnection(); //Ejecuta la conexión
-    const rta = await client.query('SELECT * FROM tasks'); //Realiza una consulta
-    return rta.rows; //Número de filas que hay en la tabla
+    const rta = await models.User.findAll(); // Ejecuta la conexión del modelo que cree
+    return rta;
   }
 
   async findOne(id) {
