@@ -2,6 +2,7 @@ const express = require('express');
 
 const UserService = require('./../services/user');
 const validatorHandler = require('./../middlewares/validator.handler');
+const { updateUserSchema, createUserSchema, getUserSchema } = require('./../schemas/user');
 
 const router = express.Router();
 const service = new UserService();
@@ -16,6 +17,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id',
+  validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -28,6 +30,7 @@ router.get('/:id',
 );
 
 router.post('/',
+  validatorHandler(createUserSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
@@ -40,6 +43,8 @@ router.post('/',
 );
 
 router.patch('/:id',
+  validatorHandler(getUserSchema, 'params'),
+  validatorHandler(updateUserSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -53,6 +58,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
+  validatorHandler(getUserSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
