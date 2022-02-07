@@ -7,7 +7,7 @@ const UserSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   email: {
     allowNull: false,
@@ -17,6 +17,11 @@ const UserSchema = {
   password: {
     allowNull: false,
     type: DataTypes.STRING,
+  },
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: 'customer',
   },
   createAt: {
     allowNull: false,
