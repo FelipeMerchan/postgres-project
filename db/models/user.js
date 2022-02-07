@@ -33,8 +33,17 @@ const UserSchema = {
 
 
 class User extends Model {
-  static associate() {
-    //associate
+  static associate(models) {
+    this.hasOne(models.Customer, {
+      as: 'customer',
+      /* Como la relación está del lado del customer aquí debemos
+      Indicarle cómo la va a encontrar a través del foreignKey.
+      De esta maenar desde la tabla Customer hay una relación userId y ahí es
+      donde se va a resolver la relación. Y al hacer una petición al endpoint de user
+      se va a anexar en la respuesta el objeto customer que tenga relacionado.
+      */
+      foreignKey: 'userId',
+    });
   }
 
   /* Configuración  */

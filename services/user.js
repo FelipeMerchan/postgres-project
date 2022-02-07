@@ -15,7 +15,9 @@ class UserService {
   }
 
   async find() {
-    const rta = await models.User.findAll(); // Ejecuta la conexión del modelo que cree
+    const rta = await models.User.findAll({
+      include: ['customer'], /* Incluirá a la asociación */
+    }); // Ejecuta la conexión del modelo que cree
     return rta;
   }
 
