@@ -21,6 +21,6 @@ Esto es muy delicado y no se aconseja para producción porque necesitamos un sis
 que nos indique en qué punto estaba para saber qué hay que modificar, cada vez que lancemos un release
 no debemos estar creando tablas.
 */
-sequelize.sync();
+/* sequelize.sync(); */
 
 module.exports = sequelize;
