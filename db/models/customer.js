@@ -41,7 +41,7 @@ const CustomerSchema =  {
       key: 'id', /* Indica hacia dónde de la tabla de referencia va a ser referida. Es decir, con qué campo de la tabla user se va a hacer la relación */
     },
     /* Indica las reglas cuando se actualice el ID (si llegase a pasar) */
-    onUpdate: 'CASCADE', /* DEbe ocurrir un comportamiento en cascada y actualizar el ID*/
+    onUpdate: 'CASCADE', /* Debe ocurrir un comportamiento en cascada y actualizar el ID*/
     onDelete: 'SET NULL',
   }
 }
