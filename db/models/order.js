@@ -17,6 +17,25 @@ const OrderSchema = {
     field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
+  /* Sequelize tienen un propiedad para calcular el total de datos calculados}
+    este atributo no va a existir realmente en la tabla. Por lo cual el tipo de datos
+    es virtual. Se recomienda cuando no hay muchos datos porque se deben recorrer y hacer
+    calculos. Si hay demasiados datos lo mejor es escribir una consulta
+    donde SQL va a hacer esto de forma mas rapida porque esta calculando directamente en la base de datos.
+  */
+  total: {
+    type: DataTypes.VIRTUAL,
+    /* Especifica cómo vamos a calcular este campo. */
+    get() {
+      /* Este this.items es el nombre que le asignamos en belongsToMany (as: 'items') */
+      if (this.items.length > 0) {
+        return this.items.reduce((total, item) => {
+          return total + (item.price * item.OrderProduct.amount);
+        }, 0);
+      }
+      return 0;
+    }
+  },
   customerId: {
     field: 'customer_id',
     allowNull: false,
