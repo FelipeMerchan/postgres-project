@@ -8,15 +8,20 @@ class CategoryService {
   }
 
   async create(data) {
-    return [];
+    const newCategory = await models.Category.create(data);
+    return newCategory;
   }
 
   async find() {
-    return [];
+    const categories = await models.Category.findAll();
+    return categories;
   }
 
   async findOne(id) {
-    return [];
+    const category = await models.Category.findByPk(id, {
+      include: ['products']
+    });
+    return category;
   }
 
   async update(id, changes) {
