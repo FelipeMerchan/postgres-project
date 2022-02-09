@@ -5,6 +5,7 @@ const { CustomerSchema, Customer } = require('./customer');
 const { CategorySchema, Category } = require('./category');
 const { ProductSchema,   Product } = require('./product');
 const { OrderSchema, Order } = require('./order');
+const { OrderProductSchema, OrderProduct } = require('./order-product');
 
 function setUpModels(sequelize) {
   User.init(UserSchema, User.config(sequelize));
@@ -12,6 +13,7 @@ function setUpModels(sequelize) {
   Category.init(CategorySchema, Category.config(sequelize));
   Product.init(ProductSchema, Product.config(sequelize));
   Order.init(OrderSchema, Order.config(sequelize));
+  OrderProduct.init(OrderProductSchema, OrderProduct.config(sequelize));
 
   /* Debemos ejecutar la asociación después de la inicialización del modelo */
   Customer.associate(sequelize.models)
