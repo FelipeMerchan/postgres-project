@@ -56,6 +56,10 @@ class Customer extends Model {
       la foreign key debería estar en la tabla de customer.
     */
     this.belongsTo(models.User, {as: 'user'});
+    this.hasMany(models.Order, {
+      as: 'orders',
+      foreignKey: 'customerId',
+    })
   }
 
   static config(sequelize) {
