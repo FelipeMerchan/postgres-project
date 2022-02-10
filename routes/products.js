@@ -4,16 +4,24 @@ const validatorHandler = require('../middlewares/validator.handler');
 const {
   createProductSchema,
   updateProductSchema,
-  getProductSchema
+  getProductSchema,
+  queryProductSchema,
 } = require('../schemas/product');
 
 const router = express.Router();
 const service = new ProductsService();
 
-router.get('/', async (request, response) => {
-  const products = await service.find();
-  response.json(products);
-});
+router.get('/',
+  validatorHandler(queryProductSchema, 'query'),
+  async (request, response, next) => {
+    try {
+      const products = await service.find(request.query);
+      response.json(products);
+    } catch (error) {
+      next(error)
+    }
+  }
+);
 
 router.get('/filter', (request, response) => {
   response.send('Soy un filter')
