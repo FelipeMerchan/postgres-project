@@ -9,8 +9,14 @@ const options = {
 }
 
 if (config.isProd) {
-  options.ssl = {
-    rejectUnauthorized: false /* Configuracion de Heroku */
+  /* Como Sequelize es agnostico, la variable ssl solo aplica para
+    herramientas con postgres. Sequelize nos da dialectOptions que de acuerdo
+    a la base de datos vamos a poder enviar ciertas opciones.
+  */
+  options.dialectOptions = {
+    ssl: {
+      rejectUnauthorized: false /* Configuracion de Heroku */
+    }
   }
 }
 
