@@ -3,15 +3,19 @@ const { Sequelize } = require('sequelize');
 const { config } = require('./../config/config');
 const setUpModels = require('./../db/models');
 
-const USER = encodeURIComponent(config.dbUser);
-const PASSWORD = encodeURIComponent(config.dbPassword);
-const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+const options = {
+  dialect: 'postgres', // Indica qué base de datos estamos utilizando
+  logging: config.idProd ? false : true, //En la consola cada vez que haga una consulta con el ORM veremos cuál sería la forma de hacer esa consulta, pero en SQL
+}
+
+if (config.isProd) {
+  options.ssl = {
+    rejectUnauthorized: false /* Configuracion de Heroku */
+  }
+}
 
 // Por detrás va a gestionar el pooling
-const sequelize = new Sequelize(URI, {
-  dialect: 'postgres', // Indica qué base de datos estamos utilizando
-  logging: true, //En la consola cada vez que haga una consulta con el ORM veremos cuál sería la forma de hacer esa consulta, pero en SQL
-});
+const sequelize = new Sequelize(config.dbUrl, options);
 
 setUpModels(sequelize);
 
